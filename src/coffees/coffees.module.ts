@@ -7,13 +7,6 @@ import { Coffee } from './entities/coffee.entity';
 import { Flavor } from './entities/flavor.entity';
 import { COFFEE_BRANDS } from './coffees.constants';
 
-@Injectable()
-export class CoffeeBrandsFactory {
-  create() {
-    return ['Nescafe', 'Barako'];
-  }
-}
-
 @Module({
   imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
   controllers: [CoffeesController],
@@ -21,9 +14,10 @@ export class CoffeeBrandsFactory {
     CoffeesService,
     {
       provide: COFFEE_BRANDS,
-      useFactory: (brandsFactory: CoffeeBrandsFactory) =>
-        brandsFactory.create(),
-      inject: [CoffeeBrandsFactory],
+      useFactory: async (): Promise<string[]> => {
+        const coffeeBrands = await Promise.resolve(['buddy brew', 'nescafe']);
+        return coffeeBrands;
+      },
     },
   ],
   exports: [CoffeesService],
