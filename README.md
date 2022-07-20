@@ -41,6 +41,15 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Migration
+
+```bash
+# Create new migration
+$ npx typeorm migration:create ./src/migrations/CoffeeRefactor
+
+# run migration - make sure to run `npm run build`
+$ npx typeorm migration:run
+```
 ## License
 
 Nest is [MIT licensed](LICENSE).
